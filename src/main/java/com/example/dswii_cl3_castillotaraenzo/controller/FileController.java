@@ -16,14 +16,21 @@ import java.util.List;
 @RequestMapping("api/v1/file")
 public class FileController {
     private FileService fileService;
-    @PostMapping("/upload")
-    public ResponseEntity<ResponseFile> subirArchivos(
-            @RequestParam("files")List<MultipartFile> files) throws  Exception{
-        fileService.guardarArchivos(files);
+
+    @PostMapping("/filespdf")
+    public ResponseEntity<ResponseFile> subirArchivosPDF(
+            @RequestParam("files") List<MultipartFile> files) throws Exception {
+        fileService.guardarArchivosPDF(files);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(
-                        ResponseFile.builder().message("Los archivos fueron cargados correctamente")
-                                .build()
-                );
+                .body(ResponseFile.builder().message("Los archivos PDF fueron cargados correctamente").build());
     }
+
+    @PostMapping("/filesdoc")
+    public ResponseEntity<ResponseFile> subirArchivosDOC(
+            @RequestParam("files") List<MultipartFile> files) throws Exception {
+        fileService.guardarArchivosDOC(files);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseFile.builder().message("Los archivos DOC fueron cargados correctamente").build());
+    }
+
 }
